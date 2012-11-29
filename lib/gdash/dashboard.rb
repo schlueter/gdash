@@ -23,6 +23,7 @@ class GDash
       @properties[:graph_height] = options.delete(:height) || graph_height
       @properties[:graph_from] = options.delete(:from) || graph_from
       @properties[:graph_until] = options.delete(:until) || graph_until
+      @properties[:options] = options
     end
 
     def graphs(options={})
