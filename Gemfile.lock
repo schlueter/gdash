@@ -1,7 +1,13 @@
+GIT
+  remote: git://github.com/acco/graphite-graph-dsl.git
+  revision: a24a3412d793308bd2c4dffa35867266bf9c6c70
+  ref: a24a3412d793308bd2c4dffa35867266bf9c6c70
+  specs:
+    graphite_graph (0.0.8)
+
 GEM
   remote: http://rubygems.org/
   specs:
-    graphite_graph (0.0.3)
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
@@ -16,6 +22,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  graphite_graph
+  graphite_graph!
   redcarpet
   sinatra
