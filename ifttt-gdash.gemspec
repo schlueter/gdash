@@ -13,7 +13,7 @@ spec = Gem::Specification.new do |s|
   s.has_rdoc = false
   s.add_development_dependency('rake')
   s.add_development_dependency('rdoc')
-  s.add_dependency 'graphite_graph'
+  s.add_dependency 'graphite_graph', '~> 0.0.8'
   s.add_dependency 'sinatra'
   s.add_dependency 'redcarpet'
 end
