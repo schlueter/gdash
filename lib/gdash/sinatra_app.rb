@@ -143,10 +143,6 @@ class GDash
 
       alias_method :h, :escape_html
 
-      def link_to_interval(options)
-        "<a href=\"#{ [@prefix, params[:category], params[:dash], 'time', h(options[:from]), h(options[:to])].join('/') }\">#{ h(options[:label]) }</a>"
-      end
-
       def query_params
         hash = {}
         protected_keys = [:category, :dash, :splat]
@@ -156,6 +152,16 @@ class GDash
         end
 
         hash
+      end
+
+      def uri_to_interval(options)
+        uri = URI([@prefix, params[:category], params[:dash], 'time', h(options[:from]), h(options[:to])].join('/'))
+        uri.query = request.query_string unless request.query_string.empty? 
+        uri.to_s        
+      end
+
+      def link_to_interval(options)
+        "<a href=\"#{ uri_to_interval(options) }\">#{ h(options[:label]) }</a>"
       end
     end
 
