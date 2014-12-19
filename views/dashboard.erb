@@ -12,10 +12,10 @@
             <td>
             <% if graph %>
                 <% if graph[:graphite][:description] %>
-                    <a href='<%= [@prefix, params[:category], @params[:dash], 'details', i].join "/" %>'>
+                    <a href='<%= uri_to_details(i) %>'>
                     <img src='<%= [@top_level[@params[:category]].graphite_render, graph[:graphite][:url].to_s.force_encoding('UTF-8')].join "?" %>' rel="<%= row == 1 ? 'popover-below' : 'popover-above' %>" title="<%= graph[:graphite][:title] %>" data-content="<%= graph[:graphite][:description] %>"></a>
                 <% else %>
-                    <a href='<%= [@prefix, params[:category], @params[:dash], 'details', i].join "/" %>'>
+                    <a href='<%= uri_to_details(i) %>'>
                     <img src='<%= [@top_level[@params[:category]].graphite_render, graph[:graphite][:url]].join "?" %>'></a>
                 <% end %>
             <% end %>

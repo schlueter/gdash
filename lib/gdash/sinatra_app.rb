@@ -65,8 +65,9 @@ class GDash
     end
 
     get '/:category/:dash/details/:name' do
+      options = query_params.except(:from, :until)
       if @top_level["#{params[:category]}"].list.include?(params[:dash])
-        @dashboard = @top_level[@params[:category]].dashboard(params[:dash])
+        @dashboard = @top_level[@params[:category]].dashboard(params[:dash], options)
       else
         @error = "No dashboard called #{params[:dash]} found in #{params[:category]}/#{@top_level[params[:category]].list.join ','}."
       end
@@ -162,6 +163,12 @@ class GDash
 
       def link_to_interval(options)
         "<a href=\"#{ uri_to_interval(options) }\">#{ h(options[:label]) }</a>"
+      end
+
+      def uri_to_details(index)
+        uri = URI([@prefix, params[:category], @params[:dash], 'details', index].join('/'))
+        uri.query = request.query_string unless request.query_string.empty?
+        uri.to_s
       end
     end
 
