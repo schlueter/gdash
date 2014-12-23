@@ -166,7 +166,9 @@ class GDash
         else
           uri = URI([@prefix, category, dash].join('/'))
         end
-        uri.query = request.query_string unless request.query_string.empty?
+        query = request.query_string.empty? ? {} : Rack::Utils.parse_nested_query(request.query_string)
+        query.merge!((options[:query] || {}).stringify_keys)
+        uri.query = query.to_query unless query.empty?
         uri.to_s
       end
 
