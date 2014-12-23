@@ -192,6 +192,7 @@ class GDash
       # @dashboard holds the dashboard
       def dashboard_preheader; ''; end
       def dashboard_header; ''; end
+      def graph_caption(graph); ''; end
     end
 
     before do

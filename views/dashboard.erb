@@ -20,6 +20,7 @@
                     <a href='<%= uri_to_details(i) %>'>
                     <img src='<%= [@top_level[@params[:category]].graphite_render, graph[:graphite][:url]].join "?" %>'></a>
                 <% end %>
+                <%= graph_caption(graph) %>
             <% end %>
             </td>
         <% end %>
