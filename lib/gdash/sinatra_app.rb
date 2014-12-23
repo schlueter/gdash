@@ -170,6 +170,11 @@ class GDash
         uri.query = request.query_string unless request.query_string.empty?
         uri.to_s
       end
+
+      # To be overriden by base classes, should they so desire.
+      # @dashboard holds the dashboard
+      def dashboard_preheader; ''; end
+      def dashboard_header; ''; end
     end
 
     before do
