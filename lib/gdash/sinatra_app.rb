@@ -144,6 +144,10 @@ class GDash
 
       alias_method :h, :escape_html
 
+      def current_top_level
+        @top_level[@params[:category]]
+      end
+
       def query_params
         hash = {}
         protected_keys = [:category, :dash, :splat]
@@ -153,6 +157,17 @@ class GDash
         end
 
         hash
+      end
+
+      def uri_to_dashboard(dash, options = {})
+        category = options[:category] || params[:category]
+        if options[:from]
+          uri = URI([@prefix, category, dash, 'time', h(options[:from]), h(options[:to])].join('/'))
+        else
+          uri = URI([@prefix, category, dash].join('/'))
+        end
+        uri.query = request.query_string unless request.query_string.empty?
+        uri.to_s
       end
 
       def uri_to_interval(options)
