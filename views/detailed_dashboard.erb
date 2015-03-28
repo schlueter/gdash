@@ -8,11 +8,12 @@
           <% graphrows.each do |graph| %>
             <td>
             <% if graph %>
-                <% if graph[:description] %>
-                    <img src='<%= [@top_level[@params[:category]].graphite_render, graph[:url]].join "?" %>' rel="<%= row == 1 ? 'popover-below' : 'popover-above' %>" title="<%= graph[:title] %>" data-content="<%= graph[:description] %>">
-                <% else %>
-                    <img src='<%= [@top_level[@params[:category]].graphite_render, graph[:url]].join "?" %>'>
-                <% end %>
+                <% img_base_url = [@top_level[@params[:category]].graphite_render, graph[:url]].join "?" %>
+                <% graphlot_url = URI.parse(img_base_url).tap{|x| x.path = "/graphlot/"}.to_s %>
+                <%# We have to doubly-escape the title and description. The first escape will allow both the values %>
+                <%# to safely fit in the attribute (which prevents injecting HTML around the img tag). The second escape
+                <%# prevents using those properties to inject HTML into the popover itself. %>
+                <img src='<%= img_base_url %>' rel="<%= row == 1 ? 'popover-below' : 'popover-above' %>" title="<%= h(h(graph[:title])) %>" data-content="<%= h(h(graph[:description])) %>&lt;div&gt;&lt;a href='<%= graphlot_url %>'&gt;Go to Graphlot&lt;/a&gt;&lt;/div&gt;">
             <% end %>
             </td>
           <% end %>
@@ -25,7 +26,7 @@
     $(function () {
       $("img[rel=popover-above]")
         .popover({
-          placement: "above", delayIn: 1000
+          placement: "above", delayIn: 1000, delayOut: 1000, html: true
         })
         .click(function(e) {
           e.preventDefault()
@@ -35,7 +36,7 @@
     $(function () {
       $("img[rel=popover-below]")
         .popover({
-          placement: "below", delayIn: 1000
+          placement: "below", delayIn: 1000, delayOut: 1000, html: true
         })
         .click(function(e) {
           e.preventDefault()
