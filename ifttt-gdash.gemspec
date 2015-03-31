@@ -1,6 +1,6 @@
 spec = Gem::Specification.new do |s|
   s.name = 'ifttt-gdash'
-  s.version = "0.0.7"
+  s.version = "0.0.8"
   s.author = 'R.I.Pienaar'
   s.email = 'rip@devco.net'
   s.homepage = 'http://devco.net/'
